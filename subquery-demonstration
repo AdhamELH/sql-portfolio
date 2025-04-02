@@ -1,0 +1,28 @@
+REQUIREMENT:  You must make maximal use of scalar and/or table variables for solving the problems.
+ 
+1.	For all Postalcodes show: Total number of customers, number of customers who have placed at least 5 orders, and number of customers who have not placed between 2 to 4 orders.  Format of result table shown below.
+
+Postalcode	Total number of customers	Number of customers who have placed at least 5 orders	Number of customers who have placed between 2 to 4 orders
+			
+			
+
+2.	For Postalcodes with more than 50 orders in 2004, for all customers living in the qualifying postalcode, for 2004 show CustomerID, Total Number of Orders, Total Sales.  Format of result table shown below. 
+CustomerID
+(must live in postalCode with more than 50 orders in 2004)	Total Number of Orders placed by customer in 2004	Total Sales to the customer in 2004
+(Sum of TotalDue)
+		
+
+3.	Produce a result table as follows:
+Number of different products in an order	Number of orders that had as many products	Percentage of orders which had as many products
+1		
+2		
+3		
+
+
+4.	For all products show: in 2004 -- number of orders placed, number of different customers who purchased the product, number of orders that included order quantity of at least 2
+
+ProductID	Number of orders containing the product in 2004	Number of customers who ordered the product in 2004	Number of orders in 2004 with order quantity for product of at least 2
+			
+			
+			
+	
