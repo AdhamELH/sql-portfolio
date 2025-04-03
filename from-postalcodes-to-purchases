@@ -1,1 +1,161 @@
+/* QUESTION 1
+			*/
+DECLARE @ResultTable TABLE (
+    PostalCode VARCHAR(20),
+    TotalCustomers INT,
+    CustomersWithAtLeast5Orders INT,
+    CustomersWith2To4Orders INT
+);
 
+INSERT INTO @ResultTable
+SELECT 
+    c.PostalCode,
+    (SELECT COUNT(*) FROM CUSTOMER WHERE PostalCode = c.PostalCode) AS TotalCustomers,
+    (
+        SELECT COUNT(DISTINCT CustID) 
+        FROM CUSTOMER 
+        WHERE PostalCode = c.PostalCode AND CustID IN (
+            SELECT CustomerID 
+            FROM SALES_ORDERS 
+            GROUP BY CustomerID 
+            HAVING COUNT(SalesOrderNumber) >= 5
+        )
+    ) AS CustomersWithAtLeast5Orders,
+    (
+        SELECT COUNT(DISTINCT CustID) 
+        FROM CUSTOMER 
+        WHERE PostalCode = c.PostalCode AND CustID IN (
+            SELECT CustomerID 
+            FROM SALES_ORDERS 
+            GROUP BY CustomerID 
+            HAVING COUNT(SalesOrderNumber) BETWEEN 2 AND 4
+        )
+    ) AS CustomersWith2To4Orders
+FROM CUSTOMER c
+GROUP BY c.PostalCode;
+
+
+SELECT 
+    PostalCode,
+    TotalCustomers AS [Total number of customers],
+    CustomersWithAtLeast5Orders AS [Number of customers who have placed at least 5 orders],
+    CustomersWith2To4Orders AS [Number of customers who have placed between 2 to 4 orders]
+FROM @ResultTable
+ORDER BY PostalCode;
+
+/* QUESTION 2
+			*/
+DECLARE @OrdersIn2004 TABLE (
+    CustomerID VARCHAR(20),
+    NumOrders INT,
+    TotalSales DECIMAL(10,2)
+);
+
+DECLARE @QualifyingPostalCodes TABLE (
+    PostalCode VARCHAR(20)
+);
+
+INSERT INTO @OrdersIn2004
+SELECT 
+    so.CustomerID,
+    COUNT(so.SalesOrderNumber) AS NumOrders,
+    SUM(so.TotalDue) AS TotalSales
+FROM SALES_ORDERS so
+WHERE YEAR(so.OrderDate) = 2004
+GROUP BY so.CustomerID;
+
+INSERT INTO @QualifyingPostalCodes
+SELECT c.PostalCode
+FROM CUSTOMER c
+JOIN SALES_ORDERS so ON c.CustID = so.CustomerID
+WHERE YEAR(so.OrderDate) = 2004
+GROUP BY c.PostalCode
+HAVING COUNT(so.SalesOrderNumber) > 50;
+
+
+SELECT 
+    c.CustID AS [CustomerID (must live in postalCode with more than 50 orders in 2004)],
+    COALESCE(o.NumOrders, 0) AS [Total Number of Orders placed by customer in 2004],
+    COALESCE(o.TotalSales, 0) AS [Total Sales to the customer in 2004 (Sum of TotalDue)]
+FROM CUSTOMER c
+LEFT JOIN @OrdersIn2004 o ON c.CustID = o.CustomerID
+WHERE c.PostalCode IN (SELECT PostalCode FROM @QualifyingPostalCodes)
+ORDER BY c.CustID 
+
+/* QUESTION 3
+			*/
+DECLARE @TotalOrders INT;
+
+SELECT @TotalOrders = COUNT(*) FROM SALES_ORDERS;
+
+DECLARE @ProductCountsResult TABLE (
+    NumDifferentProducts INT,
+    NumOrders INT,
+    PercentageOfOrders DECIMAL(5,2)
+);
+
+INSERT INTO @ProductCountsResult
+SELECT 
+    t.NumDifferentProducts,
+    COUNT(*) AS NumOrders,
+    (COUNT(*) * 100.0 / @TotalOrders) AS PercentageOfOrders
+FROM (
+        SELECT 
+        so.SalesOrderNumber,
+        COUNT(DISTINCT od.ProductID) AS NumDifferentProducts
+    FROM SALES_ORDERS so
+    JOIN ORDER_DETAILS od ON so.SalesOrderNumber = od.SalesOrderNum
+    GROUP BY so.SalesOrderNumber
+) t
+GROUP BY t.NumDifferentProducts;
+
+SELECT 
+    NumDifferentProducts AS [Number of different products in an order],
+    NumOrders AS [Number of orders that had as many products],
+    PercentageOfOrders AS [Percentage of orders which had as many products]
+FROM @ProductCountsResult
+ORDER BY NumDifferentProducts DESC
+
+/* QUESTION 4
+			*/
+DECLARE @ProductStats2004 TABLE (
+    ProductID VARCHAR(20),
+    NumOrdersContainingProduct INT,
+    NumCustomersOrdered INT,
+    NumOrdersWithQtyAtLeast2 INT
+);
+
+INSERT INTO @ProductStats2004
+SELECT 
+    p.ProductID,
+    (
+        SELECT COUNT(DISTINCT so.SalesOrderNumber)
+        FROM SALES_ORDERS so
+        JOIN ORDER_DETAILS od ON so.SalesOrderNumber = od.SalesOrderNum
+        WHERE od.ProductID = p.ProductID
+        AND YEAR(so.OrderDate) = 2004
+    ) AS NumOrdersContainingProduct,
+    (
+        SELECT COUNT(DISTINCT so.CustomerID)
+        FROM SALES_ORDERS so
+        JOIN ORDER_DETAILS od ON so.SalesOrderNumber = od.SalesOrderNum
+        WHERE od.ProductID = p.ProductID
+        AND YEAR(so.OrderDate) = 2004
+    ) AS NumCustomersOrdered,
+    (
+        SELECT COUNT(DISTINCT so.SalesOrderNumber)
+        FROM SALES_ORDERS so
+        JOIN ORDER_DETAILS od ON so.SalesOrderNumber = od.SalesOrderNum
+        WHERE od.ProductID = p.ProductID
+        AND od.OrderQty >= 2
+        AND YEAR(so.OrderDate) = 2004
+    ) AS NumOrdersWithQtyAtLeast2
+FROM PRODUCT p;
+
+SELECT 
+    ProductID,
+    NumOrdersContainingProduct AS [Number of orders containing the product in 2004],
+    NumCustomersOrdered AS [Number of customers who ordered the product in 2004],
+    NumOrdersWithQtyAtLeast2 AS [Number of orders in 2004 with order quantity for product of at least 2]
+FROM @ProductStats2004
+ORDER BY ProductID DESC
