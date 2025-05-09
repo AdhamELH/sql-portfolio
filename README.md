@@ -7,7 +7,7 @@ Welcome! This repository contains a collection of my SQL projects created using 
 ## 🔧 Tools & Technologies
 - SQL Server Management Studio (SSMS)
 - Excel (for data import/export)
-- Data visualization tools (Power BI/Tableau if applicable)
+- Data visualization tools (Tableau if applicable)
 
 ---
 
