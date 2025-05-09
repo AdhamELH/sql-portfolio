@@ -30,13 +30,6 @@ Welcome! This repository contains a collection of my SQL projects created using 
 
 ---
 
-## 📸 Screenshots / Snippets
-
-> Include visuals or snippets of key queries if applicable.
-<Insert image links or GitHub syntax for images>
-
----
-
 ## 📌 How to Run
 
 1. Clone this repo
