@@ -18,15 +18,15 @@ Welcome! This repository contains a collection of my SQL projects created using 
 - **Skills:** `GROUP BY`, `JOINs`, `HAVING`, `DATEPART`
 📂 [`/queries`](./queries)
 
-### 2. **Customer Segmentation**
-- **Objective:** Segment customers based on behavior and demographics.
-- **Skills:** CASE statements, subqueries, aggregates.
-- 📁 [`/customer-segmentation`](./customer-segmentation)
+### 2. **Customer & Order Filtering Logic – HW4**
+- **Objective:** Write targeted SQL queries to retrieve and filter customer and order data based on conditions like order history, name patterns, shipping codes, mismatched info, and derived fields.
+- **Skills:** Conditional joins, wildcard filters, string manipulation, date functions, `CONCAT`, `DATENAME`, custom logic using `LIKE` and comparison operators.  
+📂 [`/queries/hw4`](./queries/hw4)
 
-### 3. **Data Cleaning Project**
-- **Objective:** Clean and normalize messy datasets.
-- **Skills:** `ISNULL`, `TRIM`, `CAST`, handling duplicates.
-- 📁 [`/data-cleaning`](./data-cleaning)
+### 3. **Subquery & Temp Table Analytics – HW7**
+- **Objective:** Use subqueries and table variables to analyze customer behaviors, product performance, and sales trends across postal codes and timeframes (especially 2004).
+- **Skills:** Temporary tables, correlated subqueries, `GROUP BY` aggregation, derived metrics, `COALESCE`, `DECLARE`, advanced counting and percentages.  
+📂 [`/queries/hw7`](./queries/hw7)
 
 ---
 
