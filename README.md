@@ -13,10 +13,10 @@ Welcome! This repository contains a collection of my SQL projects created using 
 
 ## 📂 Project List
 
-### 1. **Sales Data Analysis**
-- **Objective:** Analyze and summarize sales trends by region and product.
-- **Skills:** `GROUP BY`, `JOINs`, window functions, CTEs.
-- 📁 [`/sales-analysis`](./sales-analysis)
+### 1. **SQL Queries – Retail Database Project**
+- **Objective:** Analyze and summarize sales trends, customer behavior, and regional performance from a retail dataset.
+- **Skills:** `GROUP BY`, `JOINs`, `HAVING`, `DATEPART`
+📂 [`/queries`](./queries)
 
 ### 2. **Customer Segmentation**
 - **Objective:** Segment customers based on behavior and demographics.
