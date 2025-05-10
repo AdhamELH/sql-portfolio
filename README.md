@@ -16,17 +16,17 @@ Welcome! This repository contains a collection of my SQL projects created using 
 ### 1. **SQL Queries – Retail Database Project**
 - **Objective:** Analyze and summarize sales trends, customer behavior, and regional performance from a retail dataset.
 - **Skills:** `GROUP BY`, `JOINs`, `HAVING`, `DATEPART`
-📂 [`/queries`](./queries)
+📂 [`/Queries`](./Queries)
 
 ### 2. **Customer & Order Filtering Logic**
 - **Objective:** Write targeted SQL queries to retrieve and filter customer and order data based on conditions like order history, name patterns, shipping codes, mismatched info, and derived fields.
 - **Skills:** Conditional joins, wildcard filters, string manipulation, date functions, `CONCAT`, `DATENAME`, custom logic using `LIKE` and comparison operators.  
-📂 [`/queries/hw4`](./queries/hw4)
+📂 [`/Customer & Order Filtering Scripts`](./Customer%20&%20Order%20Filtering%20Scripts)
 
 ### 3. **Subquery & Temp Table Analytics**
 - **Objective:** Use subqueries and table variables to analyze customer behaviors, product performance, and sales trends across postal codes and timeframes (especially 2004).
 - **Skills:** Temporary tables, correlated subqueries, `GROUP BY` aggregation, derived metrics, `COALESCE`, `DECLARE`, advanced counting and percentages.  
-📂 [`/queries/hw7`](./queries/hw7)
+📂 [`/Subquery & Temp Table Scripts`](./Subquery%20&%20Temp%20Table%20Scripts)
 
 ---
 
