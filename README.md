@@ -16,7 +16,6 @@ Welcome! This repository contains a collection of my SQL projects created using 
 ### 1. **SQL Queries – Retail Database Project**
 - **Objective:** Analyze and summarize sales trends, customer behavior, and regional performance from a retail dataset.
 - **Skills:** `GROUP BY`, `JOINs`, `HAVING`, `DATEPART`
-
 📂 [`/Queries`](./Queries)
 
 ### 2. **Customer & Order Filtering Logic**
